@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
+import colors from './src/config/colors';
 
 // Import screens
 import LoginScreen from './src/screens/LoginScreen';
@@ -71,17 +72,17 @@ function TabNavigator() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#D72638',
-        tabBarInactiveTintColor: '#666666',
-        tabBarStyle: {
-          backgroundColor: '#ffffff',
-          borderTopWidth: 1,
-          borderTopColor: '#e0e0e0',
-          paddingBottom: 5,
-          paddingTop: 5,
-          marginBottom: 10,
-          height: 60,
-        },
+                        tabBarActiveTintColor: colors.accent,
+                tabBarInactiveTintColor: colors.textSecondary,
+                tabBarStyle: {
+                  backgroundColor: colors.white,
+                  borderTopWidth: 1,
+                  borderTopColor: colors.border,
+                  paddingBottom: 5,
+                  paddingTop: 5,
+                  marginBottom: 10,
+                  height: 60,
+                },
         headerShown: false,
       })}
     >

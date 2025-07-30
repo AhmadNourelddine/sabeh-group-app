@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import CustomButton from '../components/CustomButton';
+import colors from '../config/colors';
 
 const ProfileScreen = () => {
   const { user, logout } = useAuth();
@@ -35,7 +36,7 @@ const ProfileScreen = () => {
         {/* Profile Header */}
         <View style={styles.profileHeader}>
           <View style={styles.profileIcon}>
-            <Ionicons name="person" size={32} color="#666666" />
+            <Ionicons name="person" size={32} color={colors.iconPrimary} />
           </View>
           <View style={styles.profileInfo}>
             <Text style={styles.greeting}>Hi, NBD</Text>
@@ -137,7 +138,7 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   scrollView: {
     flex: 1,
@@ -147,13 +148,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: colors.divider,
   },
   profileIcon: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: colors.divider,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 16,
@@ -164,20 +165,20 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333333',
+    color: colors.textPrimary,
     marginBottom: 4,
   },
   accountManager: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.textSecondary,
     marginBottom: 2,
   },
   accountLevel: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.textSecondary,
   },
   levelHighlight: {
-    color: '#D72638',
+    color: colors.accent,
     fontWeight: '600',
   },
   fieldsContainer: {
@@ -189,16 +190,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: colors.divider,
   },
   fieldLabel: {
     fontSize: 16,
-    color: '#333333',
+    color: colors.textPrimary,
     fontWeight: '500',
   },
   fieldValue: {
     fontSize: 16,
-    color: '#666666',
+    color: colors.textSecondary,
     flex: 1,
     textAlign: 'right',
   },
@@ -211,11 +212,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: colors.divider,
   },
   settingLabel: {
     fontSize: 16,
-    color: '#333333',
+    color: colors.textPrimary,
     fontWeight: '500',
   },
   languageContainer: {
@@ -224,19 +225,19 @@ const styles = StyleSheet.create({
   },
   languageText: {
     fontSize: 16,
-    color: '#999999',
+    color: colors.textLight,
     marginRight: 8,
   },
   languageTextActive: {
     fontSize: 16,
-    color: '#D72638',
+    color: colors.accent,
     fontWeight: '600',
   },
   buttonContainer: {
     padding: 20,
   },
   modifyButton: {
-    backgroundColor: '#D72638',
+    backgroundColor: colors.accent,
   },
   footer: {
     alignItems: 'center',
@@ -245,17 +246,17 @@ const styles = StyleSheet.create({
   },
   companyName: {
     fontSize: 16,
-    color: '#666666',
+    color: colors.textSecondary,
     marginBottom: 4,
   },
   version: {
     fontSize: 14,
-    color: '#999999',
+    color: colors.textLight,
     marginBottom: 16,
   },
   logoutText: {
     fontSize: 16,
-    color: '#D72638',
+    color: colors.accent,
     fontWeight: '600',
   },
 });

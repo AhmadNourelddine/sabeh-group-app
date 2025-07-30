@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { freightAPI } from '../services/api';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
+import colors from '../config/colors';
 
 const FreightEstimationScreen = ({ navigation }) => {
   const { user } = useAuth();
@@ -53,23 +54,23 @@ const FreightEstimationScreen = ({ navigation }) => {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color="#333333" />
-          </TouchableOpacity>
+                     <TouchableOpacity onPress={() => navigation.goBack()}>
+             <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
+           </TouchableOpacity>
           <Text style={styles.headerTitle}>Freight Estimation</Text>
-          <View style={styles.notificationButton}>
-            <Ionicons name="notifications" size={24} color="#666666" />
-            <View style={styles.notificationBadge}>
-              <Text style={styles.notificationText}>17</Text>
-            </View>
-          </View>
+                     <View style={styles.notificationButton}>
+             <Ionicons name="notifications" size={24} color={colors.iconPrimary} />
+             <View style={styles.notificationBadge}>
+               <Text style={styles.notificationText}>17</Text>
+             </View>
+           </View>
         </View>
 
         {/* Profile Section */}
         <View style={styles.profileSection}>
-          <View style={styles.profileIcon}>
-            <Ionicons name="person" size={24} color="#666666" />
-          </View>
+                     <View style={styles.profileIcon}>
+             <Ionicons name="person" size={24} color={colors.iconPrimary} />
+           </View>
           <View style={styles.profileInfo}>
             <Text style={styles.profileName}>NBD</Text>
             <Text style={styles.profileRole}>
@@ -157,7 +158,7 @@ const FreightEstimationScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: colors.background,
   },
   scrollView: {
     flex: 1,
@@ -168,12 +169,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 16,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333333',
+    color: colors.textPrimary,
   },
   notificationButton: {
     position: 'relative',
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     right: 0,
-    backgroundColor: '#D72638',
+    backgroundColor: colors.notificationBadge,
     borderRadius: 10,
     width: 20,
     height: 20,
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   notificationText: {
-    color: '#ffffff',
+    color: colors.textWhite,
     fontSize: 10,
     fontWeight: 'bold',
   },
@@ -201,14 +202,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
     marginBottom: 20,
   },
   profileIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: colors.divider,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -219,21 +220,21 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333333',
+    color: colors.textPrimary,
   },
   profileRole: {
     fontSize: 12,
-    color: '#666666',
+    color: colors.textSecondary,
   },
   formContainer: {
     padding: 20,
   },
   estimateCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.cardBackground,
     borderRadius: 12,
     padding: 20,
     marginVertical: 20,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -245,36 +246,36 @@ const styles = StyleSheet.create({
   estimateTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333333',
+    color: colors.textPrimary,
     marginBottom: 8,
   },
   estimateAmount: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#D72638',
+    color: colors.accent,
     marginBottom: 16,
   },
   breakdown: {
     borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
+    borderTopColor: colors.divider,
     paddingTop: 12,
   },
   breakdownTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333333',
+    color: colors.textPrimary,
     marginBottom: 8,
   },
   breakdownText: {
     fontSize: 12,
-    color: '#666666',
+    color: colors.textSecondary,
     marginBottom: 4,
   },
   calculateButton: {
     marginBottom: 12,
   },
   contactButton: {
-    backgroundColor: '#D72638',
+    backgroundColor: colors.accent,
   },
 });
 

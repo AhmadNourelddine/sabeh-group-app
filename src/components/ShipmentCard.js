@@ -1,18 +1,19 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import colors from '../config/colors';
 
 const ShipmentCard = ({ shipment, onPress }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'Signed':
-        return '#28a745';
+        return colors.success;
       case 'In Transit':
-        return '#ffc107';
+        return colors.warning;
       case 'Delivered':
-        return '#17a2b8';
+        return colors.info;
       default:
-        return '#6c757d';
+        return colors.textSecondary;
     }
   };
 
@@ -30,7 +31,7 @@ const ShipmentCard = ({ shipment, onPress }) => {
           <Ionicons 
             name={getTransportIcon(shipment.type)} 
             size={24} 
-            color="#D72638" 
+            color={colors.iconAccent} 
           />
         </View>
       </View>
@@ -52,11 +53,11 @@ const ShipmentCard = ({ shipment, onPress }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.cardBackground,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -77,14 +78,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   statusText: {
-    color: '#ffffff',
+    color: colors.textWhite,
     fontSize: 12,
     fontWeight: '600',
   },
   transportIcon: {
     width: 40,
     height: 40,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: colors.background,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -95,18 +96,18 @@ const styles = StyleSheet.create({
   shipmentId: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333333',
+    color: colors.textPrimary,
   },
   highlight: {
-    color: '#D72638',
+    color: colors.accent,
   },
   shippingMark: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.textSecondary,
   },
   total: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.textSecondary,
   },
 });
 

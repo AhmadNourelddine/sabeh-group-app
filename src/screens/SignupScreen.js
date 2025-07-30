@@ -13,6 +13,7 @@ import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
+import colors from '../config/colors';
 
 const SignupScreen = ({ navigation }) => {
   const [formData, setFormData] = useState({
@@ -148,7 +149,7 @@ const SignupScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   keyboardView: {
     flex: 1,
@@ -166,12 +167,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#002B5B',
+    color: colors.primary,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 18,
-    color: '#666666',
+    color: colors.textSecondary,
   },
   form: {
     flex: 1,
@@ -187,11 +188,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loginText: {
-    color: '#666666',
+    color: colors.textSecondary,
     fontSize: 16,
   },
   loginLink: {
-    color: '#D72638',
+    color: colors.accent,
     fontSize: 16,
     fontWeight: '600',
   },

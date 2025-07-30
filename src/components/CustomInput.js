@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
+import colors from '../config/colors';
 
 const CustomInput = ({
   label,
@@ -25,7 +26,7 @@ const CustomInput = ({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="#999999"
+        placeholderTextColor={colors.placeholder}
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
         multiline={multiline}
@@ -45,29 +46,29 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#333333',
+    color: colors.textPrimary,
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
-    backgroundColor: '#ffffff',
-    color: '#333333',
+    backgroundColor: colors.white,
+    color: colors.textPrimary,
     minHeight: 48,
   },
   inputError: {
-    borderColor: '#D72638',
+    borderColor: colors.error,
   },
   multilineInput: {
     minHeight: 80,
     textAlignVertical: 'top',
   },
   errorText: {
-    color: '#D72638',
+    color: colors.error,
     fontSize: 12,
     marginTop: 4,
   },

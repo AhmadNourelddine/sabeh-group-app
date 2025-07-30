@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import colors from '../config/colors';
 
 const ShipmentTrackingScreen = ({ route, navigation }) => {
   const { shipment } = route.params;
@@ -15,16 +16,16 @@ const ShipmentTrackingScreen = ({ route, navigation }) => {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color="#333333" />
-          </TouchableOpacity>
+                     <TouchableOpacity onPress={() => navigation.goBack()}>
+             <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
+           </TouchableOpacity>
           <Text style={styles.headerTitle}>Current Shipment Tracking</Text>
-          <View style={styles.notificationButton}>
-            <Ionicons name="notifications" size={24} color="#666666" />
-            <View style={styles.notificationBadge}>
-              <Text style={styles.notificationText}>17</Text>
-            </View>
-          </View>
+                     <View style={styles.notificationButton}>
+             <Ionicons name="notifications" size={24} color={colors.iconPrimary} />
+             <View style={styles.notificationBadge}>
+               <Text style={styles.notificationText}>17</Text>
+             </View>
+           </View>
         </View>
 
         {/* Shipment Card */}
@@ -38,11 +39,11 @@ const ShipmentTrackingScreen = ({ route, navigation }) => {
                 <Text style={styles.invoiceText}>Invoice</Text>
               </TouchableOpacity>
               <View style={styles.transportIcon}>
-                <Ionicons 
-                  name={getTransportIcon(shipment.shipmentType)} 
-                  size={24} 
-                  color="#D72638" 
-                />
+                                 <Ionicons 
+                   name={getTransportIcon(shipment.shipmentType)} 
+                   size={24} 
+                   color={colors.iconAccent} 
+                 />
               </View>
             </View>
           </View>
@@ -154,7 +155,7 @@ const ShipmentTrackingScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: colors.background,
   },
   scrollView: {
     flex: 1,
@@ -165,12 +166,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 16,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333333',
+    color: colors.textPrimary,
   },
   notificationButton: {
     position: 'relative',
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     right: 0,
-    backgroundColor: '#D72638',
+    backgroundColor: colors.notificationBadge,
     borderRadius: 10,
     width: 20,
     height: 20,
@@ -190,16 +191,16 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   notificationText: {
-    color: '#ffffff',
+    color: colors.textWhite,
     fontSize: 10,
     fontWeight: 'bold',
   },
   shipmentCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.cardBackground,
     margin: 20,
     borderRadius: 12,
     padding: 20,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -215,13 +216,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   statusBadge: {
-    backgroundColor: '#28a745',
+    backgroundColor: colors.success,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 12,
   },
   statusText: {
-    color: '#ffffff',
+    color: colors.textWhite,
     fontSize: 12,
     fontWeight: '600',
   },
@@ -231,20 +232,20 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   invoiceButton: {
-    backgroundColor: '#333333',
+    backgroundColor: colors.textPrimary,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 12,
   },
   invoiceText: {
-    color: '#ffffff',
+    color: colors.textWhite,
     fontSize: 12,
     fontWeight: '600',
   },
   transportIcon: {
     width: 40,
     height: 40,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: colors.background,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -258,16 +259,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: colors.divider,
   },
   detailLabel: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.textSecondary,
     fontWeight: '500',
   },
   detailValue: {
     fontSize: 14,
-    color: '#333333',
+    color: colors.textPrimary,
     fontWeight: '600',
   },
   photosSection: {
@@ -276,7 +277,7 @@ const styles = StyleSheet.create({
   photosTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333333',
+    color: colors.textPrimary,
     marginBottom: 12,
   },
   photosContainer: {
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 120,
     borderRadius: 8,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: colors.divider,
   },
 });
 

@@ -13,6 +13,7 @@ import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
+import colors from '../config/colors';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -129,7 +130,7 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   keyboardView: {
     flex: 1,
@@ -147,12 +148,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#002B5B',
+    color: colors.primary,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 18,
-    color: '#666666',
+    color: colors.textSecondary,
     letterSpacing: 2,
   },
   form: {
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   link: {
-    color: '#D72638',
+    color: colors.accent,
     fontSize: 16,
     textDecorationLine: 'underline',
   },
@@ -178,11 +179,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signupText: {
-    color: '#666666',
+    color: colors.textSecondary,
     fontSize: 16,
   },
   signupLink: {
-    color: '#D72638',
+    color: colors.accent,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   footerText: {
-    color: '#999999',
+    color: colors.textLight,
     fontSize: 12,
     textAlign: 'center',
     lineHeight: 18,

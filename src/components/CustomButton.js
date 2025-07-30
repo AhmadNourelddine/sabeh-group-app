@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import colors from '../config/colors';
 
 const CustomButton = ({ 
   title, 
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 48,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -57,18 +58,18 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   primaryButton: {
-    backgroundColor: '#D72638',
+    backgroundColor: colors.buttonPrimary,
   },
   secondaryButton: {
-    backgroundColor: '#002B5B',
+    backgroundColor: colors.primary,
   },
   outlineButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#D72638',
+    borderColor: colors.buttonPrimary,
   },
   disabledButton: {
-    backgroundColor: '#cccccc',
+    backgroundColor: colors.buttonDisabled,
     opacity: 0.6,
   },
   buttonText: {
@@ -77,16 +78,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   primaryButtonText: {
-    color: '#ffffff',
+    color: colors.textWhite,
   },
   secondaryButtonText: {
-    color: '#ffffff',
+    color: colors.textWhite,
   },
   outlineButtonText: {
-    color: '#D72638',
+    color: colors.buttonPrimary,
   },
   disabledButtonText: {
-    color: '#666666',
+    color: colors.textSecondary,
   },
 });
 

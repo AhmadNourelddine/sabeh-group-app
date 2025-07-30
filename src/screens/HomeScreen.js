@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import { shipmentAPI, newsAPI } from '../services/api';
 import ShipmentCard from '../components/ShipmentCard';
+import colors from '../config/colors';
 
 const HomeScreen = ({ navigation }) => {
   const { user } = useAuth();
@@ -55,9 +56,9 @@ const HomeScreen = ({ navigation }) => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.profileSection}>
-            <View style={styles.profileIcon}>
-              <Ionicons name="person" size={24} color="#666666" />
-            </View>
+                         <View style={styles.profileIcon}>
+               <Ionicons name="person" size={24} color={colors.iconPrimary} />
+             </View>
             <View style={styles.profileInfo}>
               <Text style={styles.profileName}>NBD</Text>
               <Text style={styles.profileRole}>
@@ -65,12 +66,12 @@ const HomeScreen = ({ navigation }) => {
               </Text>
             </View>
           </View>
-          {/* <TouchableOpacity style={styles.notificationButton}>
-            <Ionicons name="notifications" size={24} color="#666666" />
-            <View style={styles.notificationBadge}>
-              <Text style={styles.notificationText}>17</Text>
-            </View>
-          </TouchableOpacity> */}
+          {/*            <TouchableOpacity style={styles.notificationButton}>
+             <Ionicons name="notifications" size={24} color={colors.iconPrimary} />
+             <View style={styles.notificationBadge}>
+               <Text style={styles.notificationText}>17</Text>
+             </View>
+           </TouchableOpacity> */}
         </View>
 
         {/* Statement Balance */}
@@ -85,30 +86,30 @@ const HomeScreen = ({ navigation }) => {
         {/* Quick Actions */}
         <View style={styles.quickActionsContainer}>
           <View style={styles.quickActionsGrid}>
-            <TouchableOpacity style={styles.quickActionCard}>
-              <Ionicons name="person-add" size={24} color="#D72638" />
-              <Text style={styles.quickActionText}>Create an Order</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.quickActionCard}>
-              <Ionicons name="cube" size={24} color="#D72638" />
-              <Text style={styles.quickActionText}>Create a Shipment</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.quickActionCard}>
-              <Ionicons name="refresh" size={24} color="#D72638" />
-              <Text style={styles.quickActionText}>Exchange Rate</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.quickActionCard}
-              onPress={() => navigation.navigate('FreightEstimation')}
-            >
-              <Ionicons name="business" size={24} color="#D72638" />
-              <Text style={styles.quickActionText}>Freight Estimation</Text>
-            </TouchableOpacity>
+                         <TouchableOpacity style={styles.quickActionCard}>
+               <Ionicons name="person-add" size={24} color={colors.iconAccent} />
+               <Text style={styles.quickActionText}>Create an Order</Text>
+             </TouchableOpacity>
+             <TouchableOpacity style={styles.quickActionCard}>
+               <Ionicons name="cube" size={24} color={colors.iconAccent} />
+               <Text style={styles.quickActionText}>Create a Shipment</Text>
+             </TouchableOpacity>
+             <TouchableOpacity style={styles.quickActionCard}>
+               <Ionicons name="refresh" size={24} color={colors.iconAccent} />
+               <Text style={styles.quickActionText}>Exchange Rate</Text>
+             </TouchableOpacity>
+             <TouchableOpacity 
+               style={styles.quickActionCard}
+               onPress={() => navigation.navigate('FreightEstimation')}
+             >
+               <Ionicons name="business" size={24} color={colors.iconAccent} />
+               <Text style={styles.quickActionText}>Freight Estimation</Text>
+             </TouchableOpacity>
           </View>
         </View>
 
         {/* Latest News */}
-        <View style={styles.section}>
+        {/* <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Latest News</Text>
             <TouchableOpacity>
@@ -118,9 +119,9 @@ const HomeScreen = ({ navigation }) => {
           {latestNews.map((news) => (
             <View key={news.id} style={styles.newsCard}>
               <View style={styles.newsHeader}>
-                <View style={styles.newsIcon}>
-                  <Ionicons name="alert-circle" size={20} color="#D72638" />
-                </View>
+                                 <View style={styles.newsIcon}>
+                   <Ionicons name="alert-circle" size={20} color={colors.iconAccent} />
+                 </View>
                 <View style={styles.newsContent}>
                   <Text style={styles.newsTitle} numberOfLines={2}>
                     {news.title}
@@ -132,7 +133,7 @@ const HomeScreen = ({ navigation }) => {
               </View>
             </View>
           ))}
-        </View>
+        </View> */}
 
         {/* Track Shipment */}
         <View style={styles.section}>
@@ -144,20 +145,20 @@ const HomeScreen = ({ navigation }) => {
           </View>
           <View style={styles.trackingContainer}>
             <View style={styles.trackingInputContainer}>
-              <Ionicons name="search" size={20} color="#999999" style={styles.searchIcon} />
+                             <Ionicons name="search" size={20} color={colors.placeholder} style={styles.searchIcon} />
               <TextInput
                 style={styles.trackingInput}
                 placeholder="Enter Tracking Number"
                 value={trackingNumber}
                 onChangeText={setTrackingNumber}
-                placeholderTextColor="#999999"
+                                 placeholderTextColor={colors.placeholder}
               />
               <TouchableOpacity style={styles.trackButton} onPress={handleTrackShipment}>
-                <Ionicons name="arrow-forward" size={20} color="#ffffff" />
+                                 <Ionicons name="arrow-forward" size={20} color={colors.textWhite} />
               </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.qrButton}>
-              <Ionicons name="qr-code" size={24} color="#ffffff" />
+                             <Ionicons name="qr-code" size={24} color={colors.textWhite} />
             </TouchableOpacity>
           </View>
         </View>
@@ -192,7 +193,7 @@ const HomeScreen = ({ navigation }) => {
             <ShipmentCard
               key={shipment.id}
               shipment={shipment}
-              onPress={(shipment) => Alert.alert('Shipment', `Viewing ${shipment.id}`)}
+              onPress={(shipment) => navigation.navigate('ShipmentTracking', { shipment })}
             />
           ))}
         </View>
@@ -204,7 +205,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: colors.background,
   },
   scrollView: {
     flex: 1,
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     paddingVertical: 16,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   profileSection: {
     flexDirection: 'row',
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: colors.divider,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -237,11 +238,11 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333333',
+    color: colors.textPrimary,
   },
   profileRole: {
     fontSize: 12,
-    color: '#666666',
+    color: colors.textSecondary,
   },
   notificationButton: {
     position: 'relative',
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     right: 0,
-    backgroundColor: '#D72638',
+    backgroundColor: colors.notificationBadge,
     borderRadius: 10,
     width: 20,
     height: 20,
@@ -261,18 +262,18 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   notificationText: {
-    color: '#ffffff',
+    color: colors.textWhite,
     fontSize: 10,
     fontWeight: 'bold',
   },
   balanceCard: {
-    backgroundColor: '#D72638',
+    backgroundColor: colors.balanceCard,
     margin: 20,
     borderRadius: 12,
     padding: 20,
   },
   balanceTitle: {
-    color: '#ffffff',
+    color: colors.textWhite,
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 12,
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   balanceAmount: {
-    color: '#ffffff',
+    color: colors.textWhite,
     fontSize: 24,
     fontWeight: 'bold',
   },
@@ -296,7 +297,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   quickActionCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.cardBackground,
     borderRadius: 12,
     padding: 16,
     width: '48%',
@@ -306,7 +307,7 @@ const styles = StyleSheet.create({
   quickActionText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333333',
+    color: colors.textPrimary,
     textAlign: 'center',
     marginTop: 8,
   },
@@ -323,14 +324,14 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333333',
+    color: colors.textPrimary,
   },
   moreLink: {
-    color: '#666666',
+    color: colors.textSecondary,
     fontSize: 14,
   },
   newsCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.cardBackground,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -348,12 +349,12 @@ const styles = StyleSheet.create({
   },
   newsTitle: {
     fontSize: 14,
-    color: '#333333',
+    color: colors.textPrimary,
     marginBottom: 4,
   },
   newsDate: {
     fontSize: 12,
-    color: '#666666',
+    color: colors.textSecondary,
   },
   trackingContainer: {
     flexDirection: 'row',
@@ -364,11 +365,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
     borderRadius: 8,
     paddingHorizontal: 12,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
   },
   searchIcon: {
     marginRight: 8,
@@ -377,10 +378,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#333333',
+    color: colors.textPrimary,
   },
   trackButton: {
-    backgroundColor: '#666666',
+    backgroundColor: colors.buttonSecondary,
     borderRadius: 20,
     width: 40,
     height: 40,
@@ -388,7 +389,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   qrButton: {
-    backgroundColor: '#D72638',
+    backgroundColor: colors.buttonPrimary,
     borderRadius: 8,
     width: 48,
     height: 48,
@@ -397,6 +398,7 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     flexDirection: 'row',
+    marginTop: 10,
     marginBottom: 16,
     gap: 8,
   },
@@ -405,19 +407,19 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
-    backgroundColor: '#ffffff',
+    borderColor: colors.border,
+    backgroundColor: colors.filterInactive,
   },
   filterButtonActive: {
-    backgroundColor: '#666666',
-    borderColor: '#666666',
+    backgroundColor: colors.filterActive,
+    borderColor: colors.filterActive,
   },
   filterButtonText: {
     fontSize: 14,
-    color: '#333333',
+    color: colors.textPrimary,
   },
   filterButtonTextActive: {
-    color: '#ffffff',
+    color: colors.textWhite,
   },
 });
 
