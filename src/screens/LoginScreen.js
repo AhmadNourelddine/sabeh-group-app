@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 import CustomInput from '../components/CustomInput';
+import PasswordInput from '../components/PasswordInput';
 import CustomButton from '../components/CustomButton';
 import colors from '../config/colors';
 
@@ -46,14 +47,71 @@ const LoginScreen = ({ navigation }) => {
     if (!validateForm()) return;
 
     setLoading(true);
+    setErrors({}); // Clear previous errors
+
     try {
-      const response = await authAPI.login(email, password);
-      await login(response.data.user, response.data.token);
+      await login(email, password);
+      // Navigation will be handled by the app's navigation logic
     } catch (error) {
-      Alert.alert('Login Failed', error.message || 'Invalid credentials');
+      console.error('Login error:', error);
+      
+      // Handle different types of errors based on API response
+      if (error.response) {
+        // Server responded with error status
+        const { status, data } = error.response;
+        
+        switch (status) {
+          case 422: // Validation errors
+            if (data.errors) {
+              const validationErrors = {};
+              Object.keys(data.errors).forEach(key => {
+                validationErrors[key] = data.errors[key][0]; // Get first error message
+              });
+              setErrors(validationErrors);
+            } else {
+              setErrors({ general: data.message || 'Validation failed' });
+            }
+            break;
+            
+          case 401: // Unauthorized - invalid credentials
+            setErrors({ 
+              general: 'Invalid email or password. Please check your credentials and try again.' 
+            });
+            break;
+            
+          case 429: // Too many requests
+            setErrors({ 
+              general: 'Too many login attempts. Please wait a moment before trying again.' 
+            });
+            break;
+            
+          case 500: // Server error
+            setErrors({ 
+              general: 'Server error. Please try again later or contact support.' 
+            });
+            break;
+            
+          default:
+            setErrors({ 
+              general: data.message || `Login failed (${status}). Please try again.` 
+            });
+        }
+      } else if (error.request) {
+        // Network error - no response received
+        setErrors({ 
+          general: 'Network error. Please check your internet connection and try again.' 
+        });
+      } else {
+        // Other errors (e.g., from our error handling)
+        setErrors({ general: error.message || 'An unexpected error occurred. Please try again.' });
+      }
     } finally {
       setLoading(false);
     }
+  };
+
+  const clearErrors = () => {
+    setErrors({});
   };
 
   return (
@@ -69,21 +127,33 @@ const LoginScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.form}>
+            {/* General error message */}
+            {errors.general && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.generalErrorText}>{errors.general}</Text>
+              </View>
+            )}
+
             <CustomInput
               label="Email"
               value={email}
-              onChangeText={setEmail}
+              onChangeText={(text) => {
+                setEmail(text);
+                if (errors.email) clearErrors();
+              }}
               placeholder="Enter your email"
               keyboardType="email-address"
               error={errors.email}
             />
 
-            <CustomInput
+            <PasswordInput
               label="Password"
               value={password}
-              onChangeText={setPassword}
+              onChangeText={(text) => {
+                setPassword(text);
+                if (errors.password) clearErrors();
+              }}
               placeholder="Enter your password"
-              secureTextEntry
               error={errors.password}
             />
 
@@ -159,6 +229,20 @@ const styles = StyleSheet.create({
   form: {
     flex: 1,
     justifyContent: 'center',
+  },
+  errorContainer: {
+    backgroundColor: colors.error + '10', // 10% opacity
+    borderWidth: 1,
+    borderColor: colors.error,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 16,
+  },
+  generalErrorText: {
+    color: colors.error,
+    fontSize: 14,
+    textAlign: 'center',
+    lineHeight: 20,
   },
   loginButton: {
     marginTop: 24,

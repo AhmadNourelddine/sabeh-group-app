@@ -24,10 +24,13 @@ const HomeScreen = ({ navigation }) => {
         shipmentAPI.getRecentShipments(),
         newsAPI.getLatestNews(),
       ]);
-      setRecentShipments(shipmentsResponse.data);
-      setLatestNews(newsResponse.data);
+      setRecentShipments(shipmentsResponse.data || []);
+      setLatestNews(newsResponse.data || []);
     } catch (error) {
       console.error('Error loading data:', error);
+      // Set empty arrays on error to prevent crashes
+      setRecentShipments([]);
+      setLatestNews([]);
     }
   };
 
@@ -41,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
       const response = await shipmentAPI.trackShipment(trackingNumber.trim());
       navigation.navigate('ShipmentTracking', { shipment: response.data });
     } catch (error) {
-      Alert.alert('Error', 'Shipment not found');
+      Alert.alert('Error', error.message || 'Shipment not found');
     }
   };
 

@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 import CustomInput from '../components/CustomInput';
+import PasswordInput from '../components/PasswordInput';
 import CustomButton from '../components/CustomButton';
 import colors from '../config/colors';
 
@@ -29,6 +30,10 @@ const SignupScreen = ({ navigation }) => {
 
   const updateFormData = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear field-specific error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: undefined }));
+    }
   };
 
   const validateForm = () => {
@@ -64,12 +69,66 @@ const SignupScreen = ({ navigation }) => {
     if (!validateForm()) return;
 
     setLoading(true);
+    setErrors({}); // Clear previous errors
+
     try {
       const response = await authAPI.signup(formData);
-      await login(response.data.user, response.data.token);
+      // After successful signup, automatically log in the user
+      await login(formData.email, formData.password);
       Alert.alert('Success', 'Account created successfully!');
     } catch (error) {
-      Alert.alert('Signup Failed', error.message || 'Failed to create account');
+      console.error('Signup error:', error);
+      
+      // Handle different types of errors based on API response
+      if (error.response) {
+        // Server responded with error status
+        const { status, data } = error.response;
+        
+        switch (status) {
+          case 422: // Validation errors
+            if (data.errors) {
+              const validationErrors = {};
+              Object.keys(data.errors).forEach(key => {
+                validationErrors[key] = data.errors[key][0]; // Get first error message
+              });
+              setErrors(validationErrors);
+            } else {
+              setErrors({ general: data.message || 'Validation failed' });
+            }
+            break;
+            
+          case 409: // Conflict - email already exists
+            setErrors({ 
+              email: 'An account with this email already exists. Please use a different email or try logging in.' 
+            });
+            break;
+            
+          case 429: // Too many requests
+            setErrors({ 
+              general: 'Too many signup attempts. Please wait a moment before trying again.' 
+            });
+            break;
+            
+          case 500: // Server error
+            setErrors({ 
+              general: 'Server error. Please try again later or contact support.' 
+            });
+            break;
+            
+          default:
+            setErrors({ 
+              general: data.message || `Signup failed (${status}). Please try again.` 
+            });
+        }
+      } else if (error.request) {
+        // Network error - no response received
+        setErrors({ 
+          general: 'Network error. Please check your internet connection and try again.' 
+        });
+      } else {
+        // Other errors (e.g., from our error handling)
+        setErrors({ general: error.message || 'An unexpected error occurred. Please try again.' });
+      }
     } finally {
       setLoading(false);
     }
@@ -88,6 +147,13 @@ const SignupScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.form}>
+            {/* General error message */}
+            {errors.general && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.generalErrorText}>{errors.general}</Text>
+              </View>
+            )}
+
             <CustomInput
               label="Full Name"
               value={formData.name}
@@ -105,21 +171,19 @@ const SignupScreen = ({ navigation }) => {
               error={errors.email}
             />
 
-            <CustomInput
+            <PasswordInput
               label="Password"
               value={formData.password}
               onChangeText={(value) => updateFormData('password', value)}
               placeholder="Enter your password"
-              secureTextEntry
               error={errors.password}
             />
 
-            <CustomInput
+            <PasswordInput
               label="Confirm Password"
               value={formData.confirmPassword}
               onChangeText={(value) => updateFormData('confirmPassword', value)}
               placeholder="Confirm your password"
-              secureTextEntry
               error={errors.confirmPassword}
             />
 
@@ -195,6 +259,19 @@ const styles = StyleSheet.create({
     color: colors.accent,
     fontSize: 16,
     fontWeight: '600',
+  },
+  errorContainer: {
+    backgroundColor: colors.error + '10', // 10% opacity
+    borderWidth: 1,
+    borderColor: colors.error,
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  generalErrorText: {
+    color: colors.error,
+    textAlign: 'center',
+    fontSize: 14,
   },
 });
 

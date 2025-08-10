@@ -16,9 +16,15 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.sabehgroup.app",
       "adaptiveIcon": {
         "backgroundColor": "#002B5B"
       }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "857596d1-cae1-4d5c-849b-e251fd019d9b"
+      }
     }
   }
-} 
+}
